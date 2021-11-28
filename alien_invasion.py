@@ -22,12 +22,12 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
             # Удаление снарядов, вышедших за край экрана.
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            #for bullet in self.bullets.copy():
+             #   if bullet.rect.bottom <= 0:
+              #      self.bullets.remove(bullet)
                 
 # Отслеживание событий клавиатуры и мыши.
     def _check_events(self):
@@ -65,9 +65,16 @@ class AlienInvasion:
             self.ship.moving_up = False#
     
     def _fire_bullet(self):
+        
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
             
     def _update_screen(self):
         
