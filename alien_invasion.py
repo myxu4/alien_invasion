@@ -16,11 +16,19 @@ class AlienInvasion:
 
         while True:
             self._check_events()
+            self._update_screen()
 # Отслеживание событий клавиатуры и мыши.
     def _check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.rect.x += 5
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.ship.rect.x -= 5
+    def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
             
