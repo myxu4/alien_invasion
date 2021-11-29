@@ -95,18 +95,31 @@ class AlienInvasion:
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
+        self._check_aliens_bottom()
     
     def _ship_hit(self):
 # Уменьшение ships_left.
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
  # Очистка списков пришельцев и снарядов.
-        self.aliens.empty()
-        self.bullets.empty()
+            self.aliens.empty()
+            self.bullets.empty()
  # Создание нового флота и размещение корабля в центре.
-        self._create_fleet()
-        self.ship.center_ship()
+            self._create_fleet()
+            self.ship.center_ship()
 # Пауза.
-        sleep(1)
+            sleep(1)
+        else:
+            self.stats.game_active = False
+
+    def _check_aliens_bottom(self):
+
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+# Происходит то же, что при столкновении с кораблем.
+                self._ship_hit()
+                break
 
 
     def _create_fleet(self):
@@ -117,9 +130,9 @@ class AlienInvasion:
         ship_height = self.ship.rect.height
         available_space_y = (self.settings.screen_height -
                                 (3 * alien_height) - ship_height)
-        number_rows = available_space_y // (2 * alien_height)
+        number_rows = available_space_y // (3 * alien_height)
         for row_number in range(number_rows):
-            for alien_number in range(number_aliens_x+1):
+            for alien_number in range(number_aliens_x):
                 self._create_alien(alien_number, row_number)
     
     def _create_alien(self, alien_number, row_number):

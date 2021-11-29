@@ -1,3 +1,4 @@
+#import pygame
 class Settings():
     def __init__(self):
 
@@ -8,6 +9,7 @@ class Settings():
         self.fleet_drop_speed = 10
 # fleet_direction = 1 обозначает движение вправо; а -1 - влево.
         self.fleet_direction = 1
+        #self.bg = pygame.image.load("images/vibrance_14_11673_oboi_zvezdnoe_nebo_1366x768.jpg")
         self.bg_color = (0, 33, 55)
         self.ship_speed = 1.5
         self.ship_limit = 3
