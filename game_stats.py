@@ -1,4 +1,4 @@
-import 
+
 class GameStats():
 
     def __init__(self, ai_game):
