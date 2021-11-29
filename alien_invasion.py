@@ -4,6 +4,9 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from time import sleep 
+from game_stats import GameStats
+
 class AlienInvasion:
     def __init__(self):
         pygame.init()
@@ -14,6 +17,7 @@ class AlienInvasion:
         #self.screen = pygame.display.set_mode(
             #(self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
+        self.stats = GameStats(self)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -89,8 +93,20 @@ class AlienInvasion:
     def _update_aliens(self):
         self._check_fleet_edges()
         self.aliens.update()
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
     
-    
+    def _ship_hit(self):
+# Уменьшение ships_left.
+        self.stats.ships_left -= 1
+ # Очистка списков пришельцев и снарядов.
+        self.aliens.empty()
+        self.bullets.empty()
+ # Создание нового флота и размещение корабля в центре.
+        self._create_fleet()
+        self.ship.center_ship()
+# Пауза.
+        sleep(1)
 
 
     def _create_fleet(self):
@@ -103,7 +119,7 @@ class AlienInvasion:
                                 (3 * alien_height) - ship_height)
         number_rows = available_space_y // (2 * alien_height)
         for row_number in range(number_rows):
-            for alien_number in range(number_aliens_x):
+            for alien_number in range(number_aliens_x+1):
                 self._create_alien(alien_number, row_number)
     
     def _create_alien(self, alien_number, row_number):
