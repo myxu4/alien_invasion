@@ -5,6 +5,7 @@ class Alien(Sprite):
     def __init__(self, ai_game):
         super().__init__()
         self.screen = ai_game.screen
+        self.settings = ai_game.settings
 # Загрузка изображения пришельца и назначение атрибута rect.
         self.image = pygame.image.load('images/alien_ship-removebg-preview.png')
         self.rect = self.image.get_rect()
@@ -13,3 +14,6 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 # Сохранение точной горизонтальной позиции пришельца.
         self.x = float(self.rect.x)
+    def update(self):
+        self.x += self.settings.alien_speed
+        self.rect.x = self.x
