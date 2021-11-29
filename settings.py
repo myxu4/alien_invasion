@@ -5,6 +5,9 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 600
         self.alien_speed = 1.0
+        self.fleet_drop_speed = 10
+# fleet_direction = 1 обозначает движение вправо; а -1 - влево.
+        self.fleet_direction = 1
         self.bg_color = (0, 33, 55)
         self.ship_speed = 1.5
         self.bullet_speed = 3
