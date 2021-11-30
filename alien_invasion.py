@@ -6,6 +6,7 @@ from bullet import Bullet
 from alien import Alien
 from time import sleep 
 from game_stats import GameStats
+from button import Button
 
 class AlienInvasion:
     def __init__(self):
@@ -22,6 +23,7 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        self.play_button = Button(self, "Play")
         
     def run_game(self):
 
@@ -45,6 +47,13 @@ class AlienInvasion:
                 self._check_keyup_events(event)
             elif event.type == pygame.K_SPACE:
                 self._fire_bullet()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -133,7 +142,7 @@ class AlienInvasion:
                                 (3 * alien_height) - ship_height)
         number_rows = available_space_y // (3 * alien_height)
         for row_number in range(number_rows):
-            for alien_number in range(number_aliens_x):
+            for alien_number in range(number_aliens_x+1):
                 self._create_alien(alien_number, row_number)
     
     def _create_alien(self, alien_number, row_number):
@@ -164,6 +173,8 @@ class AlienInvasion:
             bullet.draw_bullet()   
 # Отображение последнего прорисованного экрана.
         self.aliens.draw(self.screen)
+        if not self.stats.game_active:
+            self.play_button.draw_button()
         pygame.display.flip()
 if __name__ == '__main__':
 # Создание экземпляра и запуск игры.
