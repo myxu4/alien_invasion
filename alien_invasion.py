@@ -31,7 +31,6 @@ class AlienInvasion:
             self._check_events()
             if self.stats.game_active:
                 self.ship.update()
-                #self.stats.reset_stats()#!!!!!!!
                 self._update_bullets()
                 self._update_aliens()
             self._update_screen()
@@ -53,7 +52,8 @@ class AlienInvasion:
                 self._check_play_button(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
-        if self.play_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
             self.stats.reset_stats()
             self.stats.game_active = True
             # Очистка списков пришельцев и снарядов.
