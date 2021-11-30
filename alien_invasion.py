@@ -31,6 +31,7 @@ class AlienInvasion:
             self._check_events()
             if self.stats.game_active:
                 self.ship.update()
+                #self.stats.reset_stats()#!!!!!!!
                 self._update_bullets()
                 self._update_aliens()
             self._update_screen()
@@ -53,7 +54,14 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.reset_stats()
             self.stats.game_active = True
+            # Очистка списков пришельцев и снарядов.
+            self.aliens.empty()
+            self.bullets.empty()
+# Создание нового флота и размещение корабля в центре.
+            self._create_fleet()
+            self.ship.center_ship()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
