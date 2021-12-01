@@ -121,8 +121,10 @@ class AlienInvasion:
                     self.bullets, self.aliens, True, True)
         if not self.aliens:
 # Уничтожение существующих снарядов и создание нового флота.
+            self.settings.increase_speed()
             self.bullets.empty()
             self._create_fleet()
+        
 
     def _update_aliens(self):
         self._check_fleet_edges()
