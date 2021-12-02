@@ -6,7 +6,7 @@ class Scoreboard():
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 # Настройки шрифта для вывода счета.
-        self.text_color = (30, 30, 30)
+        self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
 # Подготовка исходного изображения.
         self.prep_score()
