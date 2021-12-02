@@ -64,6 +64,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_level()
             # Очистка списков пришельцев и снарядов.
             self.aliens.empty()
             self.bullets.empty()
@@ -138,7 +139,8 @@ class AlienInvasion:
             self.settings.increase_speed()
             self.bullets.empty()
             self._create_fleet()
-            
+            self.stats.level += 1
+            self.sb.prep_level()
         
 
     def _update_aliens(self):

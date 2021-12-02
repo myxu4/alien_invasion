@@ -11,10 +11,21 @@ class Scoreboard():
 # Подготовка исходного изображения.
         self.prep_score()
         self.prep_high_score()#
+        self.prep_level()
+
+    def prep_level(self):
+
+        level_str = str(self.stats.level)
+        self.level_image = self.font.render(level_str, True,
+        self.text_color, self.settings.bg_color)
+# Уровень выводится под текущим счетом.
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom + 10
         
 
     def prep_score(self):
-        score = str(self.stats.score)
+        score_str = str(self.stats.score)
         rounded_score = round(self.stats.score, -1)
         score_str = "{:,}".format(rounded_score)
         self.score_image = self.font.render(score_str, True,
@@ -27,7 +38,7 @@ class Scoreboard():
     def show_score(self):
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
-    
+        self.screen.blit(self.level_image, self.level_rect)
     def prep_high_score(self):
 
         high_score = round(self.stats.high_score, -1)
