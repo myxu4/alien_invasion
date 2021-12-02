@@ -7,6 +7,8 @@ from alien import Alien
 from time import sleep 
 from game_stats import GameStats
 from button import Button
+from Level_button import level_button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     def __init__(self):
@@ -19,11 +21,14 @@ class AlienInvasion:
             #(self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
         self.play_button = Button(self, "Play")
+        
+        #self.level_button = level_button(self, "Level 1")
         
     def run_game(self):
 
@@ -202,8 +207,11 @@ class AlienInvasion:
             bullet.draw_bullet()   
 # Отображение последнего прорисованного экрана.
         self.aliens.draw(self.screen)
+        self.sb.show_score()
         if not self.stats.game_active:
             self.play_button.draw_button()
+            #self.level_button.draw_button()
+                
         pygame.display.flip()
 if __name__ == '__main__':
 # Создание экземпляра и запуск игры.
