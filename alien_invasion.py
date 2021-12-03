@@ -11,6 +11,7 @@ from Level_button import level_button
 from scoreboard import Scoreboard
 
 class AlienInvasion:
+
     def __init__(self):
         pygame.init()
         self.settings = Settings()
@@ -31,7 +32,6 @@ class AlienInvasion:
         #self.level_button = level_button(self, "Level 1")
         
     def run_game(self):
-
         while True:
             self._check_events()
             if self.stats.game_active:
@@ -65,6 +65,7 @@ class AlienInvasion:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             # Очистка списков пришельцев и снарядов.
             self.aliens.empty()
             self.bullets.empty()
@@ -154,6 +155,7 @@ class AlienInvasion:
 # Уменьшение ships_left.
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
  # Очистка списков пришельцев и снарядов.
             self.aliens.empty()
             self.bullets.empty()
