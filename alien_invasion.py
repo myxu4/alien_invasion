@@ -155,7 +155,7 @@ class AlienInvasion:
 # Уменьшение ships_left.
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
-            self.sb.prep_ships()
+            self.sb.prep_ships()           
  # Очистка списков пришельцев и снарядов.
             self.aliens.empty()
             self.bullets.empty()

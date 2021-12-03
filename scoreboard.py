@@ -58,7 +58,8 @@ class Scoreboard():
         self.high_score_rect.top = self.score_rect.top
 
     def check_high_score(self):
-
+        n = open ("high_score.txt", 'w')
+        n.write(str(self.stats.high_score))
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             self.prep_high_score()

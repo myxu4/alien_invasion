@@ -5,7 +5,8 @@ class GameStats():
         self.settings = ai_game.settings
         self.reset_stats()
         self.game_active = False
-        self.high_score = 0
+        f=open ( "high_score.txt", "r") 
+        self.high_score = int(f.read())
         self.level = 1
         
     def reset_stats(self):
