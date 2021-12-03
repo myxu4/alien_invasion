@@ -9,6 +9,7 @@ from game_stats import GameStats
 from button import Button
 from Level_button import level_button
 from scoreboard import Scoreboard
+import sounds as se 
 
 class AlienInvasion:
 
@@ -118,6 +119,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            se.bullet_sound.play() #
 
     def _update_bullets(self):
         self.bullets.update()
@@ -135,6 +137,7 @@ class AlienInvasion:
             self.stats.score += self.settings.alien_points
             self.sb.prep_score()
             self.sb.check_high_score()
+            se.alien_sound.play() 
         if not self.aliens:
 # Уничтожение существующих снарядов и создание нового флота.
             self.settings.increase_speed()
@@ -213,7 +216,7 @@ class AlienInvasion:
         self.settings.fleet_direction *= -1
       
     def _update_screen(self):
-        self.screen.fill(self.settings.bg_color)#
+        self.screen.blit(self.settings.bg,(0,0))#
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()   
