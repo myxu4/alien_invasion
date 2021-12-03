@@ -73,10 +73,12 @@ class AlienInvasion:
 # Создание нового флота и размещение корабля в центре.
             self._create_fleet()
             self.ship.center_ship()
+            se.fon_sound.play(loops=-1)
             pygame.mouse.set_visible(False)
 
     def start_game(self):
         if not self.stats.game_active:
+            
             self.settings.initialize_dynamic_settings()
             self.stats.game_active = True
             # Очистка списков пришельцев и снарядов.
